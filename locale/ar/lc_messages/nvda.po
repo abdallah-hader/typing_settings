@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2023-07-15 14:00+0300\n"
+"PO-Revision-Date: 2023-07-15 14:09+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:48
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:139
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:152
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:164
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:183
+msgid "typing settings"
+msgstr "إعدادات الكتابة"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:51
+msgid "typing sound:"
+msgstr "صوت الكتابة:"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:56
+msgid "sounds"
+msgstr "الأصوات"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:58
+msgid "speek characters"
+msgstr "نطق الأحرف"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:59
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:61
+msgid "anywhere"
+msgstr "في أي مكان"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:59
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:61
+msgid "in edit boxes only"
+msgstr "في حقول التحرير فقط"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:59
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:61
+msgid "off"
+msgstr "إيقاف"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:60
+msgid "speak words"
+msgstr "نطق الكلمات"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:62
+msgid "play sounds while typing"
+msgstr "تشغيل الأصوات عند الكتابة"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:64
+msgid "speak passwords"
+msgstr "نطق كلمات المرور"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:138
+msgid "Enable and disable typing sounds"
+msgstr "تمكين وتعطيل أصوات الكتابة"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:145
+msgid "typing sounds off"
+msgstr "أصوات الكتابة إيقاف"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:148
+msgid "typing sounds on"
+msgstr "أصوات الكتابة تفعيل"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:151
+msgid "Enable or disable speak passwords"
+msgstr "تمكين أو تعطيل نطق كلمات المرور"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:157
+msgid "speak passwords off"
+msgstr "نطق كلمات المرور تعطيل"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:160
+msgid "speak passwords on"
+msgstr "نطق كلمات المرور تفعيل"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:163
+msgid "Switches between the available speak characters  modes."
+msgstr "يبدل بين أوضاع نطق الأحرف المتاحة."
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:171
+msgid "speak typed characters off"
+msgstr "نطق الأحرف المكتوبة تعطيل"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:176
+msgid "speak typed characters anywhere"
+msgstr "نطق الأحرف في أي مكان"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:178
+msgid "speak typed characters in edit boxes only"
+msgstr "نطق الأحرف في حقول التحرير فقط"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:182
+msgid "Switches between the available speak words  modes."
+msgstr "يبدل بين أوضاع نطق الكلمات المتاحة."
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:190
+msgid "speak typed words off"
+msgstr "نطق الكلمات تعطيل"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:195
+msgid "speak typed words anywhere"
+msgstr "نطق الكلمات في أي مكان"
+
+#: C:\Users\Administrator\AppData\Roaming\nvda\addons\typing_settings\globalPlugins\typing_settings\__init__.py:197
+msgid "speak typed words in edit boxes only"
+msgstr "نطق الكلمات في حقول التحرير فقط"
