@@ -1,3 +1,4 @@
+import nvwave
 import globalPluginHandler
 import speech
 import config
@@ -8,7 +9,6 @@ import addonHandler
 import api
 from random import randint
 from globalCommands import SCRCAT_CONFIG
-from winsound import PlaySound
 from ui import message
 from scriptHandler import script
 from gui import SettingsPanel, NVDASettingsDialog, guiHelper
@@ -92,7 +92,7 @@ class TypingSettingsPanel(SettingsPanel):
 		except: pass
 
 	def onPlay(self, event):
-		PlaySound(f"{effects_dir}/{self.typingSound.GetStringSelection()}/{self.sounds.GetStringSelection()}", 1)
+		nvwave.playWaveFile(f"{effects_dir}/{self.typingSound.GetStringSelection()}/{self.sounds.GetStringSelection()}", True)
 
 	def onSave(self):
 		config.conf["typing_settings"]["typing_sound"] = self.typingSound.GetStringSelection()
@@ -120,12 +120,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def event_typedCharacter(self, obj, nextHandler, ch):
 		if self.IsEditable(obj) and config.conf["typing_settings"]["typingsnd"]:
 			if ch ==" ":
-				PlaySound(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "space.wav"), 1)
+				nvwave.playWaveFile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "space.wav"), True)
 			elif ch == "\b":
-				PlaySound(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "delete.wav"), 1)
+				nvwave.playWaveFile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "delete.wav"), True)
 			else:
 				count = self.SoundsCount(config.conf["typing_settings"]["typing_sound"])
-				PlaySound(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "typing.wav" if count<=0 else f"typing_{randint(1, count)}.wav"), 1)
+				nvwave.playWaveFile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "typing.wav" if count<=0 else f"typing_{randint(1, count)}.wav"), True)
 		nextHandler()
 
 	def SoundsCount(self, name):
