@@ -2,7 +2,7 @@ import nvwave
 import globalPluginHandler
 import speech
 import config
-import os
+import os, shutil
 import glob
 import wx
 import addonHandler
@@ -11,8 +11,10 @@ from random import randint
 from globalCommands import SCRCAT_CONFIG
 from ui import message
 from scriptHandler import script
-from gui import SettingsPanel, NVDASettingsDialog, guiHelper
+from gui import SettingsPanel, NVDASettingsDialog, guiHelper, mainFrame
 from controlTypes import STATE_READONLY, STATE_EDITABLE
+from .create import NewPack
+
 def confinit():
 	confspec = {
 		"typingsnd": "boolean(default=true)",
@@ -28,7 +30,11 @@ controls = (8, 52, 82)
 typingProtected = api.isTypingProtected
 
 def get_sounds_folders():
-		return os.listdir(effects_dir)
+	folders = []
+	for folder in os.listdir(effects_dir):
+		if os.path.isdir(os.path.join(effects_dir, folder)):
+			folders.append(folder)
+	return folders
 
 def get_sounds(name):
 	return [os.path.basename(sound) for sound in glob.glob(f"{effects_dir}/{name}/*.wav")]
@@ -55,6 +61,8 @@ class TypingSettingsPanel(SettingsPanel):
 		self.typingSound.SetStringSelection(config.conf["typing_settings"]["typing_sound"])
 		self.slable = sHelper.addItem(wx.StaticText(self, label=_("sounds"), name="ts"))
 		self.sounds = sHelper.addItem(wx.Choice(self, name="ts"))
+		delete = sHelper.addItem(wx.Button(self, -1, _("delete")))
+		create = sHelper.addItem(wx.Button(self, -1, _("Create a new soundpack")))
 		sHelper.addItem(wx.StaticText(self, label=_("speek characters")))
 		self.speakCharacters = sHelper.addItem(wx.Choice(self, choices=[_("off"), _("anywhere"), _("in edit boxes only")]))
 		sHelper.addItem(wx.StaticText(self, label=_("speak words")))
@@ -68,7 +76,7 @@ class TypingSettingsPanel(SettingsPanel):
 		except:
 			self.speakCharacters.SetSelection(0)
 		try:
-			self.speakWords.SetSelection(config.conf["typing_settings"]["speak_characters"])
+			self.speakWords.SetSelection(config.conf["typing_settings"]["speak_words"])
 		except:
 			self.speakWords.SetSelection(0)
 		self.OnChangeTypingSounds(None)
@@ -76,6 +84,9 @@ class TypingSettingsPanel(SettingsPanel):
 		self.playTypingSounds.Bind(wx.EVT_CHECKBOX, self.OnChangeTypingSounds)
 		self.typingSound.Bind(wx.EVT_CHOICE, self.onChange)
 		self.sounds.Bind(wx.EVT_CHOICE, self.onPlay)
+		create.Bind(wx.EVT_BUTTON, self.OnCreate)
+		delete.Bind(wx.EVT_BUTTON, self.OnDelete)
+
 
 	def postInit(self):
 		self.typingSound.SetFocus()
@@ -91,8 +102,23 @@ class TypingSettingsPanel(SettingsPanel):
 			self.sounds.SetSelection(0)
 		except: pass
 
+	def OnDelete(self, event):
+		index = self.typingSound.Selection
+		Pack = f"{effects_dir}/{self.typingSound.GetStringSelection()}"
+		msg = wx.MessageBox(_("Are you sure you want to delete {pack}?").format(pack=os.path.basename(Pack)), _("confirm"), style=wx.YES_NO)
+		if msg:
+			shutil.rmtree(Pack)
+			self.typingSound.Delete(self.typingSound.Selection)
+			try:
+				self.typingSound.Selection = index-1
+			except:
+				self.typingSound.Selection = 0
+
 	def onPlay(self, event):
 		nvwave.playWaveFile(f"{effects_dir}/{self.typingSound.GetStringSelection()}/{self.sounds.GetStringSelection()}", True)
+
+	def OnCreate(self, event):
+		wx.CallAfter(NewPack, mainFrame)
 
 	def onSave(self):
 		config.conf["typing_settings"]["typing_sound"] = self.typingSound.GetStringSelection()
@@ -119,10 +145,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def event_typedCharacter(self, obj, nextHandler, ch):
 		if self.IsEditable(obj) and config.conf["typing_settings"]["typingsnd"]:
-			if ch ==" ":
+			if ch == " ":
 				nvwave.playWaveFile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "space.wav"), True)
 			elif ch == "\b":
 				nvwave.playWaveFile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "delete.wav"), True)
+			elif os.path.isfile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "return.wav")) and ord(ch) == 13 or ch == "\n":
+				nvwave.playWaveFile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "return.wav"), True)
 			else:
 				count = self.SoundsCount(config.conf["typing_settings"]["typing_sound"])
 				nvwave.playWaveFile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "typing.wav" if count<=0 else f"typing_{randint(1, count)}.wav"), True)
