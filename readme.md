@@ -10,6 +10,8 @@ You can also contact me via WhatsApp through [this link](https://wa.me/964780512
 
 And also my Telegram channel [Here](https://t.me/mediaplayerpro)
 
+[donate to project](https://paypal.me/MahmoudAboElfotouh)
+
 ## Add-on Settings and Shortcuts
 You can access the typing settings through the menu nvda/Preferences/Settings/Typing Settings.
 There, you will find the add-on options, which are as follows:
@@ -36,3 +38,12 @@ There, you will find the add-on options, which are as follows:
 
 - Password Word Pronunciation:
   When this option is selected, you will be able to hear the characters typed in password fields. You can control this feature using the shortcut NVDA+Shift+P.
+#### Version 0.2
+#What's new in version 0.2
+Solve the problem of delay in some sounds.
+Now it is possible to set a different sound when pressing the enter button.
+You can now create sound pack from within the settings.
+When you click on Create a new soundpack and write the name, a window will appear with a list containing the sound boxes. You can press Enter on each box and choose the desired sound, then click on Create. The field for the writing sound will be multi-tracked, meaning more than one sound can be added to it by clicking on it. Choose the sound, then repeat the process.
+You can now delete a package. After selecting it, press the Tab button until we find Delete and click on it.
+Turkish, Vietnamese, Italian, Croatian, and Ukrainian languages ​​have been added.
+Some other fixes.
