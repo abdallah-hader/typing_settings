@@ -11,7 +11,8 @@ from random import randint
 from globalCommands import SCRCAT_CONFIG
 from ui import message
 from scriptHandler import script
-from gui import SettingsPanel, NVDASettingsDialog, guiHelper, mainFrame
+from gui import NVDASettingsDialog, guiHelper, mainFrame
+from gui.settingsDialogs import SettingsPanel
 from controlTypes import STATE_READONLY, STATE_EDITABLE
 from .create import NewPack
 
