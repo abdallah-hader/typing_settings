@@ -169,38 +169,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			config.conf["typing_settings"]["speak_on_protected"] = True
 			message(_("speak passwords on"))
 
-	@script(
-		description = _("Switches between the available speak characters  modes."),
-		category = _("typing settings"),
-gestures=["kb:nvda+2"])
-	def script_speak_characters(self, gesture):
-		current = config.conf["keyboard"]["speakTypedCharacters"]
-		if current ==2:
-			config.conf["keyboard"]["speakTypedCharacters"] = 0
-			message(_("speak typed characters off"))
-		elif current == 1:
-			config.conf["keyboard"]["speakTypedCharacters"] = 2
-			message(_("speak typed characters always"))
-		elif current == 0:
-			config.conf["keyboard"]["speakTypedCharacters"] = 1
-			message(_("speak typed characters only in edit controls"))
-
-	@script(
-		description = _("Switches between the available speak words  modes."),
-		category = _("typing settings"),
-gestures=["kb:nvda+3"])
-	def script_speak_words(self, gesture):
-		current = config.conf["keyboard"]["speakTypedWords"]
-		if current ==2:
-			config.conf["keyboard"]["speakTypedWords"] = 0
-			message(_("speak typed words off"))
-		elif current == 1:
-			config.conf["keyboard"]["speakTypedWords"] = 2
-			message(_("speak typed words always"))
-		elif current == 0:
-			config.conf["keyboard"]["speakTypedWords"] = 1
-			message(_("speak typed words only in edit controls"))
-
 	def terminate(self):
 		RestoreTypingProtected()
 		NVDASettingsDialog.categoryClasses.remove(TypingSettingsPanel)
