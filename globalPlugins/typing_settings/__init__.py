@@ -11,7 +11,8 @@ from random import randint
 from globalCommands import SCRCAT_CONFIG
 from ui import message
 from scriptHandler import script
-from gui import SettingsPanel, NVDASettingsDialog, guiHelper, mainFrame
+from gui import NVDASettingsDialog, guiHelper, mainFrame
+from gui.settingsDialogs import SettingsPanel
 from controlTypes import STATE_READONLY, STATE_EDITABLE
 from .create import NewPack
 
@@ -19,8 +20,6 @@ def confinit():
 	confspec = {
 		"typingsnd": "boolean(default=true)",
 		"typing_sound": f"string(default={get_sounds_folders()[0]})",
-		"speak_characters": "integer(default=2)",
-		"speak_words": "integer(default=2)",
 		"speak_on_protected":"boolean(default=True)"}
 	config.confspec["typing_settings"] = confspec
 
@@ -64,21 +63,10 @@ class TypingSettingsPanel(SettingsPanel):
 		delete = sHelper.addItem(wx.Button(self, -1, _("delete")))
 		create = sHelper.addItem(wx.Button(self, -1, _("Create a new soundpack")))
 		sHelper.addItem(wx.StaticText(self, label=_("speek characters")))
-		self.speakCharacters = sHelper.addItem(wx.Choice(self, choices=[_("off"), _("anywhere"), _("in edit boxes only")]))
-		sHelper.addItem(wx.StaticText(self, label=_("speak words")))
-		self.speakWords = sHelper.addItem(wx.Choice(self, choices=[_("off"), _("anywhere"), _("in edit boxes only")]))
 		self.playTypingSounds = sHelper.addItem(wx.CheckBox(self, label=_("play sounds while typing")))
 		self.playTypingSounds.SetValue(config.conf["typing_settings"]["typingsnd"])
 		self.speakPasswords = sHelper.addItem(wx.CheckBox(self, label=_("speak passwords")))
 		self.speakPasswords.SetValue(config.conf["typing_settings"]["speak_on_protected"])
-		try:
-			self.speakCharacters.SetSelection(config.conf["typing_settings"]["speak_characters"])
-		except:
-			self.speakCharacters.SetSelection(0)
-		try:
-			self.speakWords.SetSelection(config.conf["typing_settings"]["speak_words"])
-		except:
-			self.speakWords.SetSelection(0)
 		self.OnChangeTypingSounds(None)
 		self.onChange(None)
 		self.playTypingSounds.Bind(wx.EVT_CHECKBOX, self.OnChangeTypingSounds)
@@ -122,8 +110,6 @@ class TypingSettingsPanel(SettingsPanel):
 
 	def onSave(self):
 		config.conf["typing_settings"]["typing_sound"] = self.typingSound.GetStringSelection()
-		config.conf["typing_settings"]["speak_characters"] = self.speakCharacters.GetSelection()
-		config.conf["typing_settings"]["speak_words"] = self.speakWords.GetSelection()
 		config.conf["typing_settings"]["speak_on_protected"] = self.speakPasswords.GetValue()
 		config.conf["typing_settings"]["typingsnd"] = self.playTypingSounds.GetValue()
 
@@ -136,10 +122,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		return (object.role in controls or STATE_EDITABLE in object.states) and not STATE_READONLY in object.states
 
 	def event_gainFocus(self, object, nextHandler):
-		if config.conf["typing_settings"]["speak_characters"] ==2:
-			config.conf["keyboard"]["speakTypedCharacters"] = self.IsEditable(object)
-		if config.conf["typing_settings"]["speak_words"] == 2:
-			config.conf["keyboard"]["speakTypedWords"] = self.IsEditable(object)
 		api.isTypingProtected = IsTypingProtected
 		nextHandler()
 
@@ -186,44 +168,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else:
 			config.conf["typing_settings"]["speak_on_protected"] = True
 			message(_("speak passwords on"))
-
-	@script(
-		description = _("Switches between the available speak characters  modes."),
-		category = _("typing settings"),
-gestures=["kb:nvda+2"])
-	def script_speak_characters(self, gesture):
-		current = config.conf["typing_settings"]["speak_characters"]
-		if current >=2:
-			current = 0
-			config.conf["keyboard"]["speakTypedCharacters"] = False
-			message(_("speak typed characters off"))
-		else:
-			current +=1
-			if current == 1:
-				config.conf["keyboard"]["speakTypedCharacters"] = True
-				message(_("speak typed characters anywhere"))
-			elif current == 2:
-				message(_("speak typed characters in edit boxes only"))
-		config.conf["typing_settings"]["speak_characters"] = current
-
-	@script(
-		description = _("Switches between the available speak words  modes."),
-		category = _("typing settings"),
-gestures=["kb:nvda+3"])
-	def script_speak_words(self, gesture):
-		current = config.conf["typing_settings"]["speak_words"]
-		if current >=2:
-			current = 0
-			config.conf["keyboard"]["speakTypedWords"] = False
-			message(_("speak typed words off"))
-		else:
-			current +=1
-			if current == 1:
-				config.conf["keyboard"]["speakTypedWords"] = True
-				message(_("speak typed words anywhere"))
-			elif current == 2:
-				message(_("speak typed words in edit boxes only"))
-		config.conf["typing_settings"]["speak_words"] = current
 
 	def terminate(self):
 		RestoreTypingProtected()
