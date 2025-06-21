@@ -132,7 +132,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			elif ch == "\b":
 				nvwave.playWaveFile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "delete.wav"), True)
 			elif os.path.isfile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "return.wav")) and ord(ch) == 13 or ch == "\n":
-				nvwave.playWaveFile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "return.wav"), True)
+				try:
+					nvwave.playWaveFile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "return.wav"), True)
+				except:
+					pass
 			else:
 				count = self.SoundsCount(config.conf["typing_settings"]["typing_sound"])
 				nvwave.playWaveFile(os.path.join(effects_dir, config.conf['typing_settings']['typing_sound'], "typing.wav" if count<=0 else f"typing_{randint(1, count)}.wav"), True)
